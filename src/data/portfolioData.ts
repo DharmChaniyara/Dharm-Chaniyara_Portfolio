@@ -90,7 +90,7 @@ export const PROJECTS: Project[] = [
     name: "JobGuard AI (Fake Job Offer Detector)",
     tagline: "Full-stack fraud detection system powered by OpenAI text analysis & VirusTotal URL scanning.",
     category: ["AI & ML", "Full Stack Web"],
-    status: "Live Deployed",
+    status: "Completed Prototype",
     badge: "Featured AI Project",
     problem: "College students and job seekers are increasingly targeted by sophisticated employment scams, phishing offers, and malicious link attachments masquerading as genuine corporate recruiters.",
     solution: "JobGuard AI provides an automated dual-layer verification platform: users can paste raw job descriptions or upload PDF offer letters to receive an AI-generated risk score, verdict, and explainable scam indicators, while checking outbound domains via VirusTotal.",
@@ -105,8 +105,7 @@ export const PROJECTS: Project[] = [
     contribution: "Designed and implemented the full application from scratch: developed the Vite React frontend, built the Express backend API with PDF stream extraction, engineered the OpenAI risk evaluation prompt, and configured Supabase auth & PostgreSQL schemas.",
     architectureNotes: "Client (React Vite on Vercel) -> REST API (Node/Express on Render) -> OpenAI API & VirusTotal API -> Supabase DB & Auth.",
     lessonsLearned: "Handling multi-part file streaming with Multer, sanitizing raw extracted PDF text before sending to LLM context windows, and structuring prompt outputs as deterministic JSON payloads.",
-    githubUrl: "https://github.com/DharmChaniyara/Fake-Job-Offer-Detector-",
-    liveUrl: "https://fake-job-offer-detector-two.vercel.app"
+    githubUrl: "https://github.com/DharmChaniyara/Fake-Job-Offer-Detector-"
   },
   {
     id: "deal-intelligence-agent",
@@ -127,15 +126,14 @@ export const PROJECTS: Project[] = [
     contribution: "Co-developed the project with Team CODE BUSTERS at Hack Baroda 2026. Built the interactive stakeholder network visualization with D3.js and frontend deal exploration views, qualifying for the offline hackathon finals.",
     architectureNotes: "Frontend interaction layer with D3.js force-directed graphs connected to Express.js service layer and simulated organizational knowledge base.",
     lessonsLearned: "Managing complex D3 SVG rendering lifecycles inside modern web frameworks and translating sales domain requirements into intuitive technical data representations.",
-    githubUrl: "https://github.com/DharmChaniyara/CODE-BUSTERS-",
-    liveUrl: "https://code-busters-lake.vercel.app"
+    githubUrl: "https://github.com/DharmChaniyara/CODE-BUSTERS-"
   },
   {
     id: "studyshare",
     name: "StudyShare (Campus Academic Platform)",
     tagline: "Centralized peer-to-peer academic learning and course resource sharing portal for GSFC University.",
     category: ["Full Stack Web", "Academic & Mobile"],
-    status: "Live Deployed",
+    status: "Completed Prototype",
     badge: "University Community Tool",
     problem: "University students frequently struggle with scattered course documents, outdated syllabi, and informal messaging groups to find reliable exam question papers and verified notes.",
     solution: "StudyShare provides a dedicated academic platform tailored specifically for GSFC University subjects (C++, Web Technology, BTCS204, DE Course), enabling students to view syllabi, share notes, and access previous year papers securely.",
@@ -144,14 +142,13 @@ export const PROJECTS: Project[] = [
       "In-browser document viewer for course syllabi, past question papers, and study guides",
       "Supabase backend integration with custom SQL schemas for user authentication and role management",
       "Document upload workflows and administrative approval controls",
-      "Live deployment serving student peers across semesters"
+      "Document persistence serving student peers across semesters"
     ],
     technologies: ["JavaScript", "HTML5", "CSS3", "Node.js", "Supabase (PostgreSQL)", "Supabase Storage", "Vercel"],
-    contribution: "Architected database schemas (`master_setup.sql`, `setup_features.sql`, `setup_admin.sql`), implemented client-side API integrations for document retrieval and upload, and deployed the live service.",
+    contribution: "Architected database schemas (`master_setup.sql`, `setup_features.sql`, `setup_admin.sql`), implemented client-side API integrations for document retrieval and upload, and deployed the service.",
     architectureNotes: "Static frontend with dynamic JavaScript API modules interacting with Supabase BaaS (PostgreSQL DB, Storage buckets, and Auth policies).",
     lessonsLearned: "Configuring Supabase Row Level Security (RLS) policies, managing file uploads with storage buckets, and organizing multi-subject university curricula.",
-    githubUrl: "https://github.com/DharmChaniyara/tinkering-mentoring",
-    liveUrl: "https://study-share.vercel.app"
+    githubUrl: "https://github.com/DharmChaniyara/tinkering-mentoring"
   },
   {
     id: "campus-copilot",
@@ -344,7 +341,6 @@ export const GITHUB_REPOS = [
     language: "JavaScript",
     stars: 0,
     url: "https://github.com/DharmChaniyara/Fake-Job-Offer-Detector-",
-    liveUrl: "https://fake-job-offer-detector-two.vercel.app",
     tag: "AI + Full Stack"
   },
   {
@@ -354,7 +350,6 @@ export const GITHUB_REPOS = [
     language: "JavaScript",
     stars: 0,
     url: "https://github.com/DharmChaniyara/CODE-BUSTERS-",
-    liveUrl: "https://code-busters-lake.vercel.app",
     tag: "AI Sales Copilot"
   },
   {
@@ -364,7 +359,6 @@ export const GITHUB_REPOS = [
     language: "JavaScript",
     stars: 0,
     url: "https://github.com/DharmChaniyara/tinkering-mentoring",
-    liveUrl: "https://study-share.vercel.app",
     tag: "Full Stack Platform"
   },
   {

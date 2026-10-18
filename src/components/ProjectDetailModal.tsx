@@ -80,26 +80,16 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           
           {/* Quick Action Links Bar */}
           <div className="flex flex-wrap items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-900 text-white text-xs sm:text-sm font-semibold hover:bg-slate-800 transition-colors shadow-sm"
-              >
-                <span>Open Live Demo</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            )}
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-800 text-xs sm:text-sm font-semibold border border-slate-300 transition-colors shadow-sm"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm"
               >
                 <Github className="w-4 h-4" />
-                <span>View Source Code</span>
+                <span>View Source Code on GitHub</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-slate-300 ml-0.5" />
               </a>
             )}
             <div className="text-[11px] text-slate-400 ml-auto hidden sm:block font-mono">

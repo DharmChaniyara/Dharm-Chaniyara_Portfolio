@@ -75,23 +75,16 @@ export const GithubHub: React.FC = () => {
                   href={repo.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-blue-600 hover:text-blue-800 hover:underline"
                 >
+                  <Github className="w-3.5 h-3.5" />
                   <span>Inspect Code</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
 
-                {repo.liveUrl && (
-                  <a
-                    href={repo.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-emerald-700 hover:underline"
-                  >
-                    <span>Live App</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
+                <span className="text-[11px] font-mono text-slate-400">
+                  Public Repo
+                </span>
               </div>
             </div>
           ))}

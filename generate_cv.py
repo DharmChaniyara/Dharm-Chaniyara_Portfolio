@@ -2,283 +2,266 @@ import os
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable, KeepTogether
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
 
 def generate_pdf(output_path):
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+    
+    # 612 x 792 pt (Letter)
     doc = SimpleDocTemplate(
         output_path,
         pagesize=letter,
         rightMargin=32,
         leftMargin=32,
-        topMargin=22,
-        bottomMargin=22
+        topMargin=26,
+        bottomMargin=26
     )
 
     styles = getSampleStyleSheet()
 
-    # Custom styles
-    primary_color = colors.HexColor('#0f172a')   # Slate 900
-    accent_color = colors.HexColor('#0284c7')    # Sky 600
-    text_color = colors.HexColor('#334155')      # Slate 700
-    muted_color = colors.HexColor('#64748b')     # Slate 500
+    # Colors matching the Canva template (EAFrc1XfAas) and Shubham reference
+    navy_header = colors.HexColor('#1b365d')    # Bold deep navy for main name & headings
+    navy_tagline = colors.HexColor('#1e293b')   # Charcoal for professional tagline
+    teal_box = colors.HexColor('#2b6cb0')       # Blue/teal square bullet color
+    text_dark = colors.HexColor('#2d3748')      # Charcoal body text
+    text_muted = colors.HexColor('#4a5568')     # Slate secondary text
+    border_color = colors.HexColor('#cbd5e0')   # Subtle vertical column divider
 
+    # Typography styles
     name_style = ParagraphStyle(
-        'NameStyle',
+        'CanvaName',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=18,
-        leading=21,
-        textColor=primary_color,
+        fontSize=24,
+        leading=28,
+        textColor=navy_header,
         alignment=0
     )
 
     tagline_style = ParagraphStyle(
-        'TaglineStyle',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=9.5,
-        leading=12,
-        textColor=accent_color
-    )
-
-    contact_style = ParagraphStyle(
-        'ContactStyle',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=8,
-        leading=11,
-        textColor=text_color
-    )
-
-    section_heading = ParagraphStyle(
-        'SectionHeading',
+        'CanvaTagline',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
         fontSize=10,
         leading=13,
-        textColor=primary_color,
-        spaceBefore=5,
-        spaceAfter=2
+        textColor=navy_tagline,
+        spaceAfter=3
     )
 
-    body_style = ParagraphStyle(
-        'BodyStyle',
+    contact_style = ParagraphStyle(
+        'CanvaContact',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8,
-        leading=10.5,
-        textColor=text_color
+        fontSize=8.5,
+        leading=12,
+        textColor=text_muted
     )
 
-    bold_body = ParagraphStyle(
-        'BoldBody',
+    section_heading = ParagraphStyle(
+        'CanvaSecHead',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=10.5,
+        leading=14,
+        textColor=navy_header,
+        spaceBefore=7,
+        spaceAfter=3
+    )
+
+    item_title = ParagraphStyle(
+        'CanvaItemTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
         fontSize=8.5,
-        leading=11,
-        textColor=primary_color
+        leading=11.5,
+        textColor=navy_header
     )
 
-    meta_style = ParagraphStyle(
-        'MetaStyle',
-        parent=styles['Normal'],
-        fontName='Helvetica-Oblique',
-        fontSize=8,
-        leading=10.5,
-        textColor=muted_color,
-        alignment=2 # Right align
-    )
-
-    bullet_style = ParagraphStyle(
-        'BulletStyle',
+    item_sub = ParagraphStyle(
+        'CanvaItemSub',
         parent=styles['Normal'],
         fontName='Helvetica',
         fontSize=8,
         leading=10.5,
-        textColor=text_color,
+        textColor=text_muted
+    )
+
+    body_text = ParagraphStyle(
+        'CanvaBody',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=8,
+        leading=10.5,
+        textColor=text_dark
+    )
+
+    bullet_text = ParagraphStyle(
+        'CanvaBullet',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=7.8,
+        leading=10.2,
+        textColor=text_dark,
         leftIndent=10,
         firstLineIndent=-6,
         spaceBefore=0.5,
         spaceAfter=0.5
     )
 
+    skill_title = ParagraphStyle(
+        'SkillTitle',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=8.2,
+        leading=11,
+        textColor=navy_header,
+        spaceBefore=3,
+        spaceAfter=1
+    )
+
+    skill_desc = ParagraphStyle(
+        'SkillDesc',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=7.8,
+        leading=10.5,
+        textColor=text_dark,
+        spaceAfter=2
+    )
+
     elements = []
 
-    # Header: Name and Tagline
+    # ==================== TOP HEADER ====================
     elements.append(Paragraph("DHARM CHANIYARA", name_style))
-    elements.append(Paragraph("B.Tech Computer Science & Engineering Student | Aspiring AI/ML & Software Developer", tagline_style))
-    elements.append(Spacer(1, 2))
+    elements.append(Paragraph("Computer Science &amp; Engineering Student | Aspiring Software Developer", tagline_style))
+    elements.append(Paragraph("Vadodara, Gujarat, India &nbsp;|&nbsp; dharmchaniyara@gmail.com", contact_style))
+    elements.append(Paragraph("GitHub: github.com/DharmChaniyara &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LinkedIn: linkedin.com/in/dharm-chaniyara-b51b9137a", contact_style))
+    elements.append(Paragraph("Portfolio: github.com/DharmChaniyara/Dharm-Chaniyara_Portfolio", contact_style))
+    elements.append(Spacer(1, 10))
 
-    # Contact line
-    contact_text = (
-        "Vadodara, Gujarat, India &nbsp;|&nbsp; "
-        "<b>Email:</b> dharmchaniyara@gmail.com &nbsp;|&nbsp; "
-        "<b>LinkedIn:</b> linkedin.com/in/dharm-chaniyara-b51b9137a &nbsp;|&nbsp; "
-        "<b>GitHub:</b> github.com/DharmChaniyara"
-    )
-    elements.append(Paragraph(contact_text, contact_style))
-    elements.append(Spacer(1, 4))
-    elements.append(HRFlowable(width="100%", thickness=1.5, color=accent_color, spaceBefore=2, spaceAfter=6))
+    # ==================== 2-COLUMN SECTION ====================
+    # Square symbol for headings: &#9632; is ■
+    sq = "<font color='#2b6cb0'>&#9632;</font> "
 
-    # Professional Summary
-    elements.append(Paragraph("PROFESSIONAL SUMMARY", section_heading))
-    summary_text = (
-        "Third-semester B.Tech Computer Science & Engineering student at GSFC University with practical hands-on experience "
-        "in AI-assisted web development, full-stack application building, and Python programming. Completed a one-month AI Web Developer "
-        "internship at Idealfolks, Rajkot, gaining practical exposure to AI-augmented development workflows. Passionate about software "
-        "engineering, intelligent systems, and building high-utility web tools (such as JobGuard AI scam scanner and StudyShare academic portal). "
-        "Proven collaborator in hackathons (offline finalist at Hack Baroda 2026 with Team CODE BUSTERS) and eager to contribute to innovative "
-        "early-career engineering teams."
-    )
-    elements.append(Paragraph(summary_text, body_style))
-    elements.append(Spacer(1, 4))
+    left_flowables = []
+    # Left: Summary
+    left_flowables.append(Paragraph(sq + "SUMMARY", section_heading))
+    left_flowables.append(Paragraph(
+        "B.Tech Computer Science &amp; Engineering student at GSFC University with practical exposure "
+        "to full-stack web development, AI-assisted development workflows, and Python programming. "
+        "Completed a one-month AI web development internship at Idealfolks, Rajkot, gaining hands-on experience "
+        "leveraging modern AI developer tools. Built practical projects in fraud detection (JobGuard AI), "
+        "sales intelligence copilots (offline finalist at Hack Baroda 2026 with Team CODE BUSTERS), and "
+        "campus academic resource platforms. Interested in software engineering, backend systems, and "
+        "building useful AI-powered applications through collaborative, project-based engineering.",
+        body_text
+    ))
+    left_flowables.append(Spacer(1, 6))
 
-    # Education
-    elements.append(Paragraph("EDUCATION", section_heading))
-    edu_table_data = [
-        [
-            Paragraph("<b>GSFC University</b> &mdash; Vadodara, Gujarat, India", bold_body),
-            Paragraph("2025 &ndash; 2029 | Currently in 3rd Semester", meta_style)
-        ],
-        [
-            Paragraph("Bachelor of Technology (B.Tech) in Computer Science & Engineering", body_style),
-            Paragraph("Status: Active Undergraduate", meta_style)
-        ]
-    ]
-    t_edu = Table(edu_table_data, colWidths=[400, 140])
-    t_edu.setStyle(TableStyle([
-        ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 0),
-        ('RIGHTPADDING', (0,0), (-1,-1), 0),
-        ('TOPPADDING', (0,0), (-1,-1), 0),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 1),
-    ]))
-    elements.append(t_edu)
-    elements.append(Paragraph("<b>Relevant Coursework:</b> Object-Oriented Programming (Java/C++), Data Structures, Web Technology, Database Systems, Computer Hardware & Basics.", body_style))
-    elements.append(Spacer(1, 4))
+    # Left: Experience
+    left_flowables.append(Paragraph(sq + "EXPERIENCE", section_heading))
+    left_flowables.append(Paragraph("<b>AI Web Developer Intern &mdash; Idealfolks</b>", item_title))
+    left_flowables.append(Paragraph("05 June 2026 &ndash; 05 July 2026 &nbsp;|&nbsp; Rajkot, Gujarat", item_sub))
+    left_flowables.append(Paragraph("&bull; Completed a one-month project internship focused on web development and AI-assisted workflows.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Leveraged modern AI developer tools for rapid component prototyping, API design, and debugging.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Developed responsive front-end user interfaces using HTML, CSS, and JavaScript.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Technologies: HTML, CSS, JavaScript, AI Developer Tools", bullet_text))
+    left_flowables.append(Spacer(1, 6))
 
-    # Work Experience
-    elements.append(Paragraph("EXPERIENCE", section_heading))
-    exp_table_data = [
-        [
-            Paragraph("<b>Idealfolks</b> &mdash; Rajkot, Gujarat, India", bold_body),
-            Paragraph("June 05, 2026 &ndash; July 05, 2026", meta_style)
-        ],
-        [
-            Paragraph("<i>AI Web Developer Intern</i>", ParagraphStyle('Ital', parent=body_style, fontName='Helvetica-Bold', textColor=accent_color)),
-            Paragraph("1-Month Verified Internship", meta_style)
-        ]
-    ]
-    t_exp = Table(exp_table_data, colWidths=[380, 160])
-    t_exp.setStyle(TableStyle([
-        ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 0),
-        ('RIGHTPADDING', (0,0), (-1,-1), 0),
-        ('TOPPADDING', (0,0), (-1,-1), 0),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 1),
-    ]))
-    elements.append(t_exp)
-    elements.append(Paragraph("&bull; Completed an intensive 1-month web development internship focusing on applying modern AI developer tools to engineering workflows.", bullet_style))
-    elements.append(Paragraph("&bull; Built responsive front-end user interfaces using HTML, CSS, and JavaScript, ensuring cross-device adaptability.", bullet_style))
-    elements.append(Paragraph("&bull; Leveraged generative AI tools for code prototyping, automated unit test drafting, and component troubleshooting.", bullet_style))
-    elements.append(Paragraph("&bull; Collaborated under engineering guidance to learn full-stack project architecture and version control practices.", bullet_style))
-    elements.append(Spacer(1, 4))
-
-    # Selected Projects
-    elements.append(Paragraph("SELECTED PROJECTS", section_heading))
+    # Left: Selected Projects
+    left_flowables.append(Paragraph(sq + "SELECTED PROJECTS", section_heading))
 
     # Project 1: JobGuard AI
-    p1_header = [
-        [
-            Paragraph("<b>JobGuard AI &mdash; Fake Job Offer & Scam Detector</b>", bold_body),
-            Paragraph("React, Node.js, Express, Supabase, OpenAI API", meta_style)
-        ]
-    ]
-    t_p1 = Table(p1_header, colWidths=[350, 190])
-    t_p1.setStyle(TableStyle([('LEFTPADDING', (0,0), (-1,-1), 0), ('RIGHTPADDING', (0,0), (-1,-1), 0), ('TOPPADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,0), (-1,-1), 1)]))
-    elements.append(t_p1)
-    elements.append(Paragraph("&bull; Built a full-stack security application detecting fraudulent employment offers via text scanning and PDF offer letter uploads.", bullet_style))
-    elements.append(Paragraph("&bull; Integrated OpenAI API to analyze suspicious phrasing, unrealistic salary structures, and scam indicators with explainable reasoning.", bullet_style))
-    elements.append(Paragraph("&bull; Integrated VirusTotal API for scanning embedded domain links; implemented Supabase for authentication and scan history storage.", bullet_style))
-    elements.append(Paragraph("&bull; Live deployed on Vercel: <i>fake-job-offer-detector-two.vercel.app</i>", bullet_style))
-    elements.append(Spacer(1, 3))
+    left_flowables.append(Paragraph("<b>JobGuard AI &mdash; Fake Job Offer &amp; Scam Detector</b>", item_title))
+    left_flowables.append(Paragraph("&bull; Developed a full-stack security application to detect fraudulent job offers using OpenAI for text analysis and VirusTotal API for malicious link scanning.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Built automated PDF text extraction using Multer and pdf-parse; designed prompt-engineered scoring model returning explainable scam indicators.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Technologies: React, Node.js, Express, Supabase, OpenAI API, VirusTotal API", bullet_text))
+    left_flowables.append(Spacer(1, 4))
 
     # Project 2: Deal Intelligence Agent
-    p2_header = [
-        [
-            Paragraph("<b>Deal Intelligence Agent &mdash; AI Sales Copilot</b>", bold_body),
-            Paragraph("React, Node.js, Express, D3.js, Vercel", meta_style)
-        ]
-    ]
-    t_p2 = Table(p2_header, colWidths=[350, 190])
-    t_p2.setStyle(TableStyle([('LEFTPADDING', (0,0), (-1,-1), 0), ('RIGHTPADDING', (0,0), (-1,-1), 0), ('TOPPADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,0), (-1,-1), 1)]))
-    elements.append(t_p2)
-    elements.append(Paragraph("&bull; Developed an AI-powered sales intelligence copilot that captures deal interactions to form organizational memory.", bullet_style))
-    elements.append(Paragraph("&bull; Competed with Team CODE BUSTERS at Hack Baroda 2026; successfully qualified for the final offline hackathon round.", bullet_style))
-    elements.append(Paragraph("&bull; Implemented stakeholder relationship mapping using D3.js and simulated objection handling workflows.", bullet_style))
-    elements.append(Spacer(1, 3))
+    left_flowables.append(Paragraph("<b>Deal Intelligence Agent &mdash; Hack Baroda 2026</b>", item_title))
+    left_flowables.append(Paragraph("&bull; Collaborated with Team CODE BUSTERS at Hack Baroda 2026 to develop the Deal Intelligence Agent, an AI-powered sales copilot designed to organize sales knowledge and make prior deal experience useful.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Focused on organizing deal interactions and presenting stakeholder relationships using D3.js; explored objection insights and similar-deal retrieval.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Technologies: HTML, CSS, JavaScript, React, Node.js, Express, D3.js", bullet_text))
+    left_flowables.append(Paragraph("&bull; Team selected for the final offline round.", bullet_text))
+    left_flowables.append(Spacer(1, 4))
 
     # Project 3: StudyShare
-    p3_header = [
-        [
-            Paragraph("<b>StudyShare &mdash; Campus Academic Resource Platform</b>", bold_body),
-            Paragraph("JavaScript, Supabase, Node.js, Vercel", meta_style)
-        ]
-    ]
-    t_p3 = Table(p3_header, colWidths=[350, 190])
-    t_p3.setStyle(TableStyle([('LEFTPADDING', (0,0), (-1,-1), 0), ('RIGHTPADDING', (0,0), (-1,-1), 0), ('TOPPADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,0), (-1,-1), 1)]))
-    elements.append(t_p3)
-    elements.append(Paragraph("&bull; Architected a centralized academic sharing hub for GSFC University students covering syllabi, PYQs, and lecture notes.", bullet_style))
-    elements.append(Paragraph("&bull; Designed SQL schemas in Supabase for user roles, subject categorization, and secure document storage; deployed live at <i>study-share.vercel.app</i>.", bullet_style))
-    elements.append(Spacer(1, 3))
+    left_flowables.append(Paragraph("<b>StudyShare &mdash; Campus Academic Resource Platform</b>", item_title))
+    left_flowables.append(Paragraph("&bull; Developed a centralized academic sharing web platform for GSFC University students to access course syllabi, lecture notes, and past-year question papers.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Designed Supabase PostgreSQL schemas, document upload pipelines, and access control.", bullet_text))
+    left_flowables.append(Paragraph("&bull; Technologies: JavaScript, HTML5, CSS3, Node.js, Supabase, Vercel", bullet_text))
 
-    # Project 4: Campus Copilot & DevFest
-    p4_header = [
-        [
-            Paragraph("<b>Campus Copilot &amp; DevFest Baroda 2026 Mobile Companion</b>", bold_body),
-            Paragraph("TypeScript, React, Kotlin, Android", meta_style)
-        ]
-    ]
-    t_p4 = Table(p4_header, colWidths=[350, 190])
-    t_p4.setStyle(TableStyle([('LEFTPADDING', (0,0), (-1,-1), 0), ('RIGHTPADDING', (0,0), (-1,-1), 0), ('TOPPADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,0), (-1,-1), 1)]))
-    elements.append(t_p4)
-    elements.append(Paragraph("&bull; Contributed to Campus Copilot, an IEEE collaborative university assistant incorporating RAG retrieval and authenticated student records.", bullet_style))
-    elements.append(Paragraph("&bull; Developed DevFest Baroda 2026 companion app in Kotlin/Android Jetpack for the upcoming GDG Baroda conference.", bullet_style))
-    elements.append(Spacer(1, 4))
+    # Right column
+    right_flowables = []
 
-    # Technical Skills
-    elements.append(Paragraph("TECHNICAL SKILLS", section_heading))
-    skills_data = [
-        [Paragraph("<b>Programming Languages:</b>", bold_body), Paragraph("Python (Certified: Python Essentials 2), JavaScript (ES6+), Java, Kotlin (Basics), C/C++", body_style)],
-        [Paragraph("<b>Web & Frontend:</b>", bold_body), Paragraph("React.js, Vite, Tailwind CSS, HTML5, CSS3, REST APIs, Framer Motion", body_style)],
-        [Paragraph("<b>Backend & Databases:</b>", bold_body), Paragraph("Node.js, Express.js, Supabase (PostgreSQL), SQL Fundamentals", body_style)],
-        [Paragraph("<b>AI / ML & Workflows:</b>", bold_body), Paragraph("OpenAI API Integration, Prompt Engineering, RAG Concepts, AI-Assisted Dev Workflows", body_style)],
-        [Paragraph("<b>Tools & Version Control:</b>", bold_body), Paragraph("Git, GitHub, Vercel, VS Code, Postman, Linux Basics", body_style)]
-    ]
-    t_skills = Table(skills_data, colWidths=[140, 400])
-    t_skills.setStyle(TableStyle([
+    # Right: Education
+    right_flowables.append(Paragraph(sq + "EDUCATION", section_heading))
+    right_flowables.append(Paragraph("<b>B.Tech &mdash; Computer Science &amp; Engineering</b>", item_title))
+    right_flowables.append(Paragraph("GSFC University, Gujarat", item_sub))
+    right_flowables.append(Paragraph("Currently in the 3rd semester (2025&ndash;2029).", item_sub))
+    right_flowables.append(Spacer(1, 8))
+
+    # Right: Technical Skills
+    right_flowables.append(Paragraph(sq + "TECHNICAL SKILLS", section_heading))
+    
+    right_flowables.append(Paragraph("Programming Languages:", skill_title))
+    right_flowables.append(Paragraph("Python (Certified), JavaScript (ES6+), Java, C/C++", skill_desc))
+
+    right_flowables.append(Paragraph("Web Development:", skill_title))
+    right_flowables.append(Paragraph("React.js, Vite, Tailwind CSS, HTML, CSS, Node.js, Express.js", skill_desc))
+
+    right_flowables.append(Paragraph("Databases &amp; BaaS:", skill_title))
+    right_flowables.append(Paragraph("Supabase, PostgreSQL, SQL", skill_desc))
+
+    right_flowables.append(Paragraph("AI &amp; Modern Tools:", skill_title))
+    right_flowables.append(Paragraph("OpenAI API, RAG Concepts, Prompt Engineering, AI Dev Workflows", skill_desc))
+
+    right_flowables.append(Paragraph("Tools &amp; Version Control:", skill_title))
+    right_flowables.append(Paragraph("Git, GitHub, Vercel, VS Code", skill_desc))
+    right_flowables.append(Spacer(1, 8))
+
+    # Right: Hackathon & Certifications
+    right_flowables.append(Paragraph(sq + "HACKATHON &amp; AWARDS", section_heading))
+    right_flowables.append(Paragraph("<b>Hack Baroda 2026 &mdash; Offline Finalist</b>", item_title))
+    right_flowables.append(Paragraph("Selected in final offline round with Team CODE BUSTERS for Deal Intelligence Agent.", skill_desc))
+    right_flowables.append(Spacer(1, 4))
+
+    right_flowables.append(Paragraph(sq + "CERTIFICATIONS", section_heading))
+    right_flowables.append(Paragraph("<b>Python Essentials 2</b>", item_title))
+    right_flowables.append(Paragraph("Cisco Networking Academy &amp; OpenEDG Python Institute (Oct 2026)", skill_desc))
+    right_flowables.append(Spacer(1, 2))
+
+    right_flowables.append(Paragraph("<b>Computer Hardware Basics</b>", item_title))
+    right_flowables.append(Paragraph("Cisco Networking Academy (Sep 2026)", skill_desc))
+    right_flowables.append(Spacer(1, 2))
+
+    right_flowables.append(Paragraph("<b>SSIP Drone Workshop</b>", item_title))
+    right_flowables.append(Paragraph("Student Start-up and Innovation Policy, Gujarat", skill_desc))
+
+    # Build 2-column table
+    two_col_table = Table(
+        [[left_flowables, right_flowables]],
+        colWidths=[340, 208]
+    )
+    two_col_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 0),
-        ('RIGHTPADDING', (0,0), (-1,-1), 0),
-        ('TOPPADDING', (0,0), (-1,-1), 1),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 1),
+        ('LEFTPADDING', (0,0), (0,0), 0),
+        ('RIGHTPADDING', (0,0), (0,0), 12),
+        ('LEFTPADDING', (1,0), (1,0), 14),
+        ('RIGHTPADDING', (1,0), (1,0), 0),
+        ('TOPPADDING', (0,0), (-1,-1), 0),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 0),
+        ('LINEBEFORE', (1,0), (1,-1), 0.75, border_color),
     ]))
-    elements.append(t_skills)
-    elements.append(Spacer(1, 4))
 
-    # Certifications & Achievements
-    elements.append(Paragraph("CERTIFICATIONS & ACHIEVEMENTS", section_heading))
-    elements.append(Paragraph("&bull; <b>Python Essentials 2</b> &mdash; Cisco Networking Academy / OpenEDG Python Institute (Oct 18, 2026)", bullet_style))
-    elements.append(Paragraph("&bull; <b>Computer Hardware Basics</b> &mdash; Cisco Networking Academy (Sep 24, 2026)", bullet_style))
-    elements.append(Paragraph("&bull; <b>Offline Finalist &mdash; Hack Baroda 2026</b>: Selected among top teams with Team CODE BUSTERS for Deal Intelligence Agent.", bullet_style))
-    elements.append(Paragraph("&bull; <b>SSIP Drone Technology Workshop</b> &mdash; Student Start-up and Innovation Policy (SSIP), Gujarat / GSFC University.", bullet_style))
+    elements.append(two_col_table)
 
     doc.build(elements)
     print(f"CV successfully generated at {output_path}")
 
 if __name__ == '__main__':
     generate_pdf('Dharm_Chaniyara_CV.pdf')
+    generate_pdf('public/resume/Dharm_Chaniyara_CV.pdf')

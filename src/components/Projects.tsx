@@ -64,10 +64,10 @@ export const Projects: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border ${
-                    project.status === 'Live Deployed'
-                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                      : project.status.includes('Finalist')
+                    project.status.includes('Finalist')
                       ? 'bg-blue-50 text-blue-700 border-blue-200'
+                      : project.status.includes('Completed')
+                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                       : 'bg-slate-100 text-slate-600 border-slate-200'
                   }`}>
                     {project.status}
@@ -144,22 +144,12 @@ export const Projects: React.FC = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="p-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200 transition-colors"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-all shadow-sm"
                         aria-label={`View ${project.name} source code on GitHub`}
                       >
-                        <Github className="w-4 h-4" />
-                      </a>
-                    )}
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-all shadow-sm"
-                        aria-label={`Launch live demo for ${project.name}`}
-                      >
-                        <span>Demo</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <Github className="w-3.5 h-3.5" />
+                        <span>Code</span>
+                        <ArrowUpRight className="w-3 h-3 text-slate-300" />
                       </a>
                     )}
                   </div>
