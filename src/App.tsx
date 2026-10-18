@@ -15,7 +15,7 @@ export const App: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-dark-950 text-slate-200 flex flex-col font-sans selection:bg-brand-cyan/20 selection:text-brand-cyan">
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
       {/* Top Navigation */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 

@@ -5,70 +5,58 @@
 @layer base {
   html {
     font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   body {
-    background-color: #050811;
-    color: #e2e8f0;
+    background-color: #ffffff;
+    color: #1e293b;
     overflow-x: hidden;
   }
 
-  /* Custom subtle scrollbar */
+  /* Minimalist light scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #090e1a;
+    background: #f8fafc;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 4px;
+    background: #cbd5e1;
+    border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #94a3b8;
   }
 }
 
 @layer utilities {
-  .glass-panel {
-    background: rgba(13, 21, 39, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+  .minimal-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease-in-out;
   }
 
-  .glass-panel-hover {
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  .minimal-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
   }
 
-  .glass-panel-hover:hover {
-    background: rgba(17, 28, 52, 0.85);
-    border-color: rgba(6, 182, 212, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.15);
+  .badge-neutral {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
   }
 
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 50%, #818cf8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .badge-accent {
+    background-color: #f0f9ff;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
   }
 
-  .text-gradient-subtle {
-    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .bg-grid {
-    background-size: 28px 28px;
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  }
-
-  .bg-radial-gradient {
-    background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, rgba(5, 8, 17, 0) 60%);
+  .badge-success {
+    background-color: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
   }
 }
