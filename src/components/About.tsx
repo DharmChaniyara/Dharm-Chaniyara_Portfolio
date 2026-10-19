@@ -123,7 +123,7 @@ export const About: React.FC = () => {
                     <MapPin className="w-4 h-4 text-[#567C8D]" />
                     Location
                   </span>
-                  <span className="text-[#2F4156] font-bold text-xs text-right">Vadodara / Rajkot, Gujarat</span>
+                  <span className="text-[#2F4156] font-bold text-xs text-right">Vadodara, Gujarat (Open across Gujarat)</span>
                 </div>
                 <div className="flex items-start justify-between pb-3 border-b border-[#2F4156]/10">
                   <span className="text-[#567C8D] flex items-center gap-1.5 text-xs">

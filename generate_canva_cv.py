@@ -81,10 +81,10 @@ def generate_canva_cv(output_pdf_path):
     curr_y = draw_left_section_heading("Contact", curr_y)
     
     contact_items = [
-        ("Phone:", "+91 93281 92762"),
-        ("Email:", "dharmchaniyara@gmail.com"),
-        ("Location:", "Vadodara / Rajkot, India"),
-        ("LinkedIn:", "dharm-chaniyara-b51b9137a"),
+        ("Phone:", "+91 73830 15150"),
+        ("Email:", "dharmchaniyara7368@gmail.com"),
+        ("Location:", "Vadodara, Gujarat (Open across Gujarat)"),
+        ("LinkedIn:", "linkedin.com/in/dharm-chaniyara-b51b9137a"),
         ("GitHub:", "github.com/DharmChaniyara"),
     ]
     
@@ -93,7 +93,7 @@ def generate_canva_cv(output_pdf_path):
         c.setFont("Helvetica-Bold", 8)
         c.setFillColor(navy_bg)
         c.drawString(32, curr_y, label)
-        c.setFont("Helvetica", 8.2)
+        c.setFont("Helvetica", 7.8)
         c.setFillColor(text_dark)
         c.drawString(75, curr_y, val)
         curr_y -= 14

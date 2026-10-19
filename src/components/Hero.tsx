@@ -176,7 +176,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               </div>
 
               <div className="mt-5 pt-3.5 border-t border-[#2F4156]/12 flex items-center justify-between text-xs text-[#567C8D]">
-                <span>Vadodara / Rajkot, India</span>
+                <span>Vadodara, Gujarat &bull; Open across Gujarat</span>
                 <a href="#about" className="text-[#2F4156] font-bold hover:underline flex items-center gap-1">
                   <span>Read background</span>
                   <span>&rarr;</span>

@@ -142,7 +142,7 @@ export const Contact: React.FC = () => {
               <MapPin className="w-4 h-4 text-[#2F4156]" />
             </div>
             <span>
-              Based in <strong>Vadodara &amp; Rajkot, Gujarat, India</strong> &bull; Open to on-site, hybrid, or remote roles
+              Based in <strong>Vadodara, Gujarat</strong> &bull; Available to work in any city across Gujarat (Vadodara, Ahmedabad, Surat, Rajkot) &amp; Remote
             </span>
           </div>
 

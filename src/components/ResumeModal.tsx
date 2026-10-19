@@ -194,7 +194,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                     <div className="space-y-1.5 text-[11px] text-[#2F4156]">
                       <div>
                         <span className="font-bold block">Phone:</span>
-                        <span>+91 93281 92762</span>
+                        <span>+91 73830 15150</span>
                       </div>
                       <div>
                         <span className="font-bold block">Email:</span>
@@ -204,12 +204,12 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                       </div>
                       <div>
                         <span className="font-bold block">Location:</span>
-                        <span>Vadodara / Rajkot, India</span>
+                        <span>Vadodara, Gujarat (Open across Gujarat)</span>
                       </div>
                       <div>
                         <span className="font-bold block">LinkedIn:</span>
                         <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noreferrer" className="text-[#567C8D] hover:underline">
-                          dharm-chaniyara
+                          dharm-chaniyara-b51b9137a
                         </a>
                       </div>
                       <div>
