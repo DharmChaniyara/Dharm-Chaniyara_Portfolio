@@ -128,7 +128,7 @@ def generate_canva_cv(output_pdf_path):
     curr_y -= 12
     c.setFont("Helvetica", 8.5)
     c.setFillColor(text_muted)
-    c.drawString(32, curr_y, "Higher Secondary (GSEB Science)")
+    c.drawString(32, curr_y, "Higher Secondary (CBSE Science)")
     curr_y -= 11
     c.setFont("Helvetica-Bold", 8)
     c.setFillColor(teal_accent)

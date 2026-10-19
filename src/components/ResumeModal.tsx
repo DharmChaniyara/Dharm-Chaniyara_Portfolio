@@ -243,7 +243,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                       </div>
                       <div>
                         <div className="font-bold text-[#2F4156]">The Vatsalya School, Rajkot</div>
-                        <div className="text-[#475569]">Higher Secondary (GSEB Science)</div>
+                        <div className="text-[#475569]">Higher Secondary (CBSE Science)</div>
                         <div className="font-semibold text-[#567C8D]">Foundation CS &amp; Mathematics</div>
                       </div>
                     </div>
