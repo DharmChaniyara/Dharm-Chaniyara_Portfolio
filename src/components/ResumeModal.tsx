@@ -194,7 +194,9 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                     <div className="space-y-1.5 text-[11px] text-[#2F4156]">
                       <div>
                         <span className="font-bold block">Phone:</span>
-                        <span>+91 73830 15150</span>
+                        <a href="tel:+917383015150" className="hover:text-[#567C8D]">
+                          +91 73830 15150
+                        </a>
                       </div>
                       <div>
                         <span className="font-bold block">Email:</span>
@@ -204,18 +206,24 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                       </div>
                       <div>
                         <span className="font-bold block">Location:</span>
-                        <span>Vadodara, Gujarat (Open across Gujarat)</span>
+                        <span>Vadodara (Open in Gujarat)</span>
                       </div>
                       <div>
                         <span className="font-bold block">LinkedIn:</span>
-                        <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noreferrer" className="text-[#567C8D] hover:underline">
+                        <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noreferrer noopener" className="text-[#567C8D] hover:underline font-medium">
                           dharm-chaniyara-b51b9137a
                         </a>
                       </div>
                       <div>
                         <span className="font-bold block">GitHub:</span>
-                        <a href={PERSONAL_INFO.github} target="_blank" rel="noreferrer" className="text-[#567C8D] hover:underline">
+                        <a href={PERSONAL_INFO.github} target="_blank" rel="noreferrer noopener" className="text-[#567C8D] hover:underline font-medium">
                           @DharmChaniyara
+                        </a>
+                      </div>
+                      <div>
+                        <span className="font-bold block">Portfolio:</span>
+                        <a href={PERSONAL_INFO.portfolioUrl || "https://dharm-chaniyara-portfolio.vercel.app"} target="_blank" rel="noreferrer noopener" className="text-[#567C8D] hover:underline font-medium break-all">
+                          dharm-chaniyara.vercel.app
                         </a>
                       </div>
                     </div>

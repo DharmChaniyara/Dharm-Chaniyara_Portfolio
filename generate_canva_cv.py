@@ -81,23 +81,30 @@ def generate_canva_cv(output_pdf_path):
     curr_y = draw_left_section_heading("Contact", curr_y)
     
     contact_items = [
-        ("Phone:", "+91 73830 15150"),
-        ("Email:", "dharmchaniyara7368@gmail.com"),
-        ("Location:", "Vadodara, Gujarat (Open across Gujarat)"),
-        ("LinkedIn:", "linkedin.com/in/dharm-chaniyara-b51b9137a"),
-        ("GitHub:", "github.com/DharmChaniyara"),
+        ("Phone:", "+91 73830 15150", "tel:+917383015150", False),
+        ("Email:", "dharmchaniyara7368@gmail.com", "mailto:dharmchaniyara7368@gmail.com", True),
+        ("Location:", "Vadodara (Open in Gujarat)", None, False),
+        ("LinkedIn:", "dharm-chaniyara-b51b9137a", "https://www.linkedin.com/in/dharm-chaniyara-b51b9137a/", True),
+        ("GitHub:", "DharmChaniyara", "https://github.com/DharmChaniyara", True),
+        ("Portfolio:", "dharm-chaniyara.vercel.app", "https://dharm-chaniyara-portfolio.vercel.app", True),
     ]
     
-    c.setFont("Helvetica", 8.5)
-    for label, val in contact_items:
+    for label, val, link_url, is_link in contact_items:
         c.setFont("Helvetica-Bold", 8)
         c.setFillColor(navy_bg)
         c.drawString(32, curr_y, label)
         c.setFont("Helvetica", 7.8)
-        c.setFillColor(text_dark)
-        c.drawString(75, curr_y, val)
-        curr_y -= 14
-    curr_y -= 10
+        if is_link and link_url:
+            c.setFillColor(teal_accent)
+            c.drawString(75, curr_y, val)
+            text_width = c.stringWidth(val, "Helvetica", 7.8)
+            # Add clickable hyperlink annotation hotspot
+            c.linkURL(link_url, (75, curr_y - 2, 75 + text_width, curr_y + 9), relative=0)
+        else:
+            c.setFillColor(text_dark)
+            c.drawString(75, curr_y, val)
+        curr_y -= 13.5
+    curr_y -= 8
 
     # --- EDUCATION ---
     curr_y = draw_left_section_heading("Education", curr_y)

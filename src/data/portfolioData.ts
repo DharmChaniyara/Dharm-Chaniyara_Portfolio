@@ -64,6 +64,7 @@ export const PERSONAL_INFO = {
   email: "dharmchaniyara7368@gmail.com",
   github: "https://github.com/DharmChaniyara",
   linkedin: "https://www.linkedin.com/in/dharm-chaniyara-b51b9137a/",
+  portfolioUrl: "https://dharm-chaniyara-portfolio.vercel.app",
   resumeUrl: "/resume/Dharm_Chaniyara_CV.pdf",
 };
 
