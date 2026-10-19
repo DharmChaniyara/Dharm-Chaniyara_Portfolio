@@ -2,15 +2,15 @@ import React from 'react';
 import { 
   ArrowRight, 
   FileText, 
-  Github, 
-  Linkedin, 
   GraduationCap, 
   Briefcase, 
   Trophy, 
   Award,
-  Sparkles
+  Sparkles,
+  MapPin
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { LinkedinColoredIcon, GithubColoredIcon } from './BrandIcons';
 
 interface HeroProps {
   onOpenResume: () => void;
@@ -20,7 +20,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
   return (
     <section 
       id="home" 
-      className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-slate-200/80 bg-slate-50/50"
+      className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#2F4156]/15 bg-[#F5EFEB] bg-edgy-grid overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -28,39 +28,39 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
           {/* Left Column: Introduction & Primary CTAs */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-medium text-blue-800 mb-6">
-              <span className="w-2 h-2 rounded-full bg-blue-600" />
+            {/* Status Pill with Precision Edge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C8D9E6]/70 border border-[#567C8D]/40 text-xs font-semibold text-[#2F4156] mb-6 shadow-edge-xs">
+              <span className="w-2 h-2 rounded-full bg-[#567C8D] animate-pulse" />
               <span>3rd Sem B.Tech CSE @ GSFC University</span>
-              <span className="text-blue-300">&bull;</span>
+              <span className="text-[#567C8D]">&bull;</span>
               <span>Open to Internships</span>
             </div>
 
             {/* Name */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight mb-3">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#2F4156] leading-[1.08] mb-3">
               {PERSONAL_INFO.name}
             </h1>
 
             {/* Professional Headline */}
-            <h2 className="text-lg sm:text-xl font-semibold text-slate-700 mb-5">
+            <h2 className="text-lg sm:text-xl font-semibold text-[#567C8D] mb-5">
               Computer Science Student &bull; Aspiring AI/ML Engineer &amp; Software Developer
             </h2>
 
             {/* Concise Supporting Copy */}
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl">
+            <p className="text-base sm:text-lg text-[#2F4156]/85 leading-relaxed mb-8 max-w-2xl">
               I build practical software applications and explore AI-powered tools. 
-              Grounded in foundational computer science at <span className="text-slate-900 font-medium">GSFC University</span>, 
-              with hands-on front-end experience from an internship at <span className="text-slate-900 font-medium">IdeaFolks</span>, 
-              and practical projects including <span className="text-slate-900 font-medium">JobGuard AI</span> (scam detection), 
-              the <span className="text-slate-900 font-medium">Deal Intelligence Agent</span> (Hack Baroda 2026 finalist), 
-              and <span className="text-slate-900 font-medium">StudyShare</span>.
+              Grounded in foundational computer science at <span className="text-[#2F4156] font-bold">GSFC University</span>, 
+              with hands-on front-end experience from an internship at <span className="text-[#2F4156] font-bold">IdeaFolks</span>, 
+              and practical projects including <span className="text-[#2F4156] font-bold">JobGuard AI</span> (scam detection), 
+              the <span className="text-[#2F4156] font-bold">Deal Intelligence Agent</span> (Hack Baroda 2026 finalist), 
+              and <span className="text-[#2F4156] font-bold">StudyShare</span>.
             </p>
 
-            {/* Action Buttons */}
+            {/* Action Buttons with Edgy / Precision Edges */}
             <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
               <a
                 href="#projects"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-slate-900 text-white font-medium text-sm hover:bg-slate-800 active:scale-95 transition-all shadow-sm"
+                className="w-full sm:w-auto edgy-btn-primary px-6 py-3 rounded-md font-semibold text-sm inline-flex items-center justify-center gap-2"
               >
                 <span>View Projects</span>
                 <ArrowRight className="w-4 h-4" />
@@ -68,101 +68,118 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
 
               <button
                 onClick={onOpenResume}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-white hover:bg-slate-50 text-slate-800 font-medium text-sm border border-slate-300 transition-all active:scale-95 shadow-sm"
+                className="w-full sm:w-auto edgy-btn-secondary px-5 py-3 rounded-md font-semibold text-sm inline-flex items-center justify-center gap-2"
               >
-                <FileText className="w-4 h-4 text-slate-600" />
+                <FileText className="w-4 h-4 text-[#567C8D]" />
                 <span>Download CV</span>
               </button>
 
-              <div className="flex items-center gap-2 pt-2 sm:pt-0">
+              <div className="flex items-center gap-2.5 pt-2 sm:pt-0">
                 <a
                   href={PERSONAL_INFO.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-3 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors shadow-sm"
+                  className="edgy-btn-secondary p-2.5 rounded-md flex items-center justify-center group"
                   aria-label="Connect on LinkedIn"
+                  title="LinkedIn Profile"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <LinkedinColoredIcon className="w-5 h-5 transition-transform duration-200 group-hover:scale-110" />
                 </a>
                 <a
                   href={PERSONAL_INFO.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-3 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors shadow-sm"
+                  className="edgy-btn-secondary p-2.5 rounded-md flex items-center justify-center group"
                   aria-label="View GitHub profile"
+                  title="GitHub Profile"
                 >
-                  <Github className="w-4 h-4" />
+                  <GithubColoredIcon className="w-5 h-5 transition-transform duration-200 group-hover:scale-110" />
                 </a>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Clean, Minimalist Profile Highlights Card */}
+          {/* Right Column: Edgy Profile Highlights Card featuring Arch Photo */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-sm">
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
-                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">
-                  Profile Snapshot
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                  Active Student
-                </span>
+            <div className="edgy-card rounded-xl p-6 sm:p-7 relative overflow-hidden">
+              
+              {/* Card Header with Arch Photo Preview & Status */}
+              <div className="flex items-center gap-4 pb-4 mb-4 border-b border-[#2F4156]/12">
+                <div className="w-14 h-18 rounded-t-full overflow-hidden border-2 border-white shadow-edge-xs bg-[#2F4156] shrink-0">
+                  <img 
+                    src="/images/dharm_arch_photo.png" 
+                    alt="Dharm Chaniyara" 
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#567C8D]">
+                    Profile Snapshot
+                  </div>
+                  <div className="text-sm font-bold text-[#2F4156] truncate">
+                    Dharm Chaniyara
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#567C8D] mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                    B.Tech CSE &bull; GSFC University
+                  </div>
+                </div>
               </div>
 
-              <div className="space-y-4 text-sm">
+              <div className="space-y-3.5 text-sm">
                 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-slate-100 text-slate-700 shrink-0 mt-0.5">
-                    <GraduationCap className="w-4 h-4" />
+                  <div className="p-2 rounded-md bg-[#C8D9E6]/50 text-[#2F4156] shrink-0 mt-0.5 border border-[#2F4156]/10">
+                    <GraduationCap className="w-4 h-4 text-[#2F4156]" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-500">Education</div>
-                    <div className="font-semibold text-slate-900">GSFC University, Gujarat</div>
-                    <div className="text-xs text-slate-600">B.Tech CSE &bull; 3rd Semester (2025–2029)</div>
+                    <div className="text-xs text-[#567C8D] font-medium">Education</div>
+                    <div className="font-bold text-[#2F4156]">GSFC University, Gujarat</div>
+                    <div className="text-xs text-[#2F4156]/75">B.Tech CSE &bull; 3rd Semester (2025–2029)</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-slate-100 text-slate-700 shrink-0 mt-0.5">
-                    <Briefcase className="w-4 h-4" />
+                  <div className="p-2 rounded-md bg-[#C8D9E6]/50 text-[#2F4156] shrink-0 mt-0.5 border border-[#2F4156]/10">
+                    <Briefcase className="w-4 h-4 text-[#2F4156]" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-500">Industry Training</div>
-                    <div className="font-semibold text-slate-900">IdeaFolks &bull; Rajkot</div>
-                    <div className="text-xs text-slate-600">AI Web Developer Intern (June–July 2026)</div>
+                    <div className="text-xs text-[#567C8D] font-medium">Industry Training</div>
+                    <div className="font-bold text-[#2F4156]">IdeaFolks &bull; Rajkot</div>
+                    <div className="text-xs text-[#2F4156]/75">AI Web Developer Intern (June–July 2026)</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-slate-100 text-slate-700 shrink-0 mt-0.5">
-                    <Trophy className="w-4 h-4" />
+                  <div className="p-2 rounded-md bg-[#C8D9E6]/50 text-[#2F4156] shrink-0 mt-0.5 border border-[#2F4156]/10">
+                    <Trophy className="w-4 h-4 text-[#2F4156]" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-500">Competition</div>
-                    <div className="font-semibold text-slate-900">Hack Baroda 2026 Finalist</div>
-                    <div className="text-xs text-slate-600">Offline Finalist with Team CODE BUSTERS</div>
+                    <div className="text-xs text-[#567C8D] font-medium">Competition</div>
+                    <div className="font-bold text-[#2F4156]">Hack Baroda 2026 Finalist</div>
+                    <div className="text-xs text-[#2F4156]/75">Offline Finalist with Team CODE BUSTERS</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-slate-100 text-slate-700 shrink-0 mt-0.5">
-                    <Award className="w-4 h-4" />
+                  <div className="p-2 rounded-md bg-[#C8D9E6]/50 text-[#2F4156] shrink-0 mt-0.5 border border-[#2F4156]/10">
+                    <Award className="w-4 h-4 text-[#2F4156]" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-500">Certification</div>
-                    <div className="font-semibold text-slate-900">Python Essentials 2</div>
-                    <div className="text-xs text-slate-600">Cisco Networking Academy (Oct 2026)</div>
+                    <div className="text-xs text-[#567C8D] font-medium">Certification</div>
+                    <div className="font-bold text-[#2F4156]">Python Essentials 2</div>
+                    <div className="text-xs text-[#2F4156]/75">Cisco Networking Academy (Oct 2026)</div>
                   </div>
                 </div>
 
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                <span>Location: Vadodara / Rajkot, India</span>
-                <a href="#about" className="text-blue-600 font-medium hover:underline">
-                  Read background &rarr;
+              <div className="mt-5 pt-3.5 border-t border-[#2F4156]/12 flex items-center justify-between text-xs text-[#567C8D]">
+                <span>Vadodara / Rajkot, India</span>
+                <a href="#about" className="text-[#2F4156] font-bold hover:underline flex items-center gap-1">
+                  <span>Read background</span>
+                  <span>&rarr;</span>
                 </a>
               </div>
             </div>

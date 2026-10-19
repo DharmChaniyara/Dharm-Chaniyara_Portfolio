@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { 
-  Mail, 
-  Linkedin, 
-  Github, 
   Copy, 
   Check, 
   ArrowUpRight, 
   MapPin, 
-  MessageCircle
+  Mail,
+  Sparkles
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { GmailColoredIcon, LinkedinColoredIcon, GithubColoredIcon } from './BrandIcons';
+import { TechGroveAnimation } from './TechGroveAnimation';
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -17,150 +17,138 @@ export const Contact: React.FC = () => {
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    setTimeout(() => setCopied(false), 2200);
   };
 
+  const contactLinks = [
+    {
+      id: 'email',
+      label: 'Email',
+      href: `mailto:${PERSONAL_INFO.email}`,
+      target: undefined,
+      rel: undefined,
+      Icon: GmailColoredIcon,
+      hoverClass: 'hover:border-red-200 hover:bg-white',
+    },
+    {
+      id: 'linkedin',
+      label: 'LinkedIn',
+      href: PERSONAL_INFO.linkedin,
+      target: '_blank',
+      rel: 'noreferrer noopener',
+      Icon: LinkedinColoredIcon,
+      hoverClass: 'hover:border-blue-200 hover:bg-white',
+    },
+    {
+      id: 'github',
+      label: 'GitHub',
+      href: PERSONAL_INFO.github,
+      target: '_blank',
+      rel: 'noreferrer noopener',
+      Icon: GithubColoredIcon,
+      hoverClass: 'hover:border-purple-200 hover:bg-white',
+    },
+  ];
+
   return (
-    <section id="contact" className="py-20 relative bg-white border-b border-slate-200/80">
+    <section 
+      id="contact" 
+      className="py-20 sm:py-28 relative bg-[#F5EFEB] border-t border-b border-[#2F4156]/15 overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-start mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-medium text-emerald-800 mb-3">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Open to Work &bull; India</span>
-          </div>
+        {/* Top Status Row */}
+        <div className="flex items-center gap-2 mb-6">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+          <span className="text-sm font-bold tracking-wide text-[#2F4156]">
+            Open to work &bull; India
+          </span>
+        </div>
 
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
-            Let's build something real.
+        {/* Main Editorial Headline */}
+        <div className="mb-10 sm:mb-12">
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#2F4156] leading-[1.08]">
+            Let&apos;s build <br className="hidden sm:inline" />
+            something real.
           </h2>
-          
-          <p className="text-slate-600 text-base mt-2 max-w-2xl leading-relaxed">
-            I'm interested in learning, building, and contributing to meaningful software engineering and AI-enabled projects through internship opportunities. Reach out directly through any of the channels below.
+          <p className="text-[#2F4156]/80 text-base sm:text-lg mt-4 max-w-2xl leading-relaxed">
+            I&apos;m looking for student internship opportunities where I can build production systems, 
+            contribute AI-enabled features, and learn from experienced engineering teams.
           </p>
         </div>
 
-        {/* Contact Cards Grid (Recruiter-friendly & Minimalist) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Main Content Row: Colored Channels (Left) & Pixel Animation (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-8">
           
-          {/* Email Card */}
-          <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-4 border border-blue-100">
-                <Mail className="w-5 h-5" />
-              </div>
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold mb-1">
-                Email
-              </div>
-              <div className="text-sm font-semibold text-slate-900 select-all break-all">
-                {PERSONAL_INFO.email}
-              </div>
-              <p className="text-xs text-slate-500 mt-1">
-                Fastest way to reach me for recruitment or discussions.
-              </p>
-            </div>
+          {/* Left Column: Direct Colored Links */}
+          <div className="lg:col-span-7 flex flex-col items-start gap-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              {contactLinks.map((item) => {
+                const IconComponent = item.Icon;
+                return (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    target={item.target}
+                    rel={item.rel}
+                    className="group inline-flex items-center gap-2.5 px-4 py-2.5 edgy-card text-[#2F4156] text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5"
+                    aria-label={`Open ${item.label}`}
+                  >
+                    <IconComponent className="w-5 h-5 transition-transform duration-200 group-hover:scale-110" />
+                    <span className="tracking-tight">{item.label}</span>
+                    <ArrowUpRight className="w-4 h-4 text-[#567C8D] transition-all duration-200 group-hover:text-[#2F4156] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                );
+              })}
 
-            <div className="mt-5 pt-4 border-t border-slate-200 flex items-center justify-between">
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline"
-              >
-                <span>Compose Mail</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-
+              {/* Quick Copy Email Button */}
               <button
                 onClick={handleCopyEmail}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-white border border-slate-200 hover:bg-slate-100 text-xs text-slate-700 transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-3.5 py-2.5 edgy-card text-[#2F4156] text-sm font-semibold hover:bg-[#F5EFEB] transition-all duration-200 active:scale-95"
                 title="Copy email to clipboard"
+                aria-label="Copy email address"
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="text-emerald-700 font-medium">Copied</span>
+                    <Check className="w-4 h-4 text-emerald-600" />
+                    <span className="text-emerald-700 font-bold text-xs sm:text-sm">Email Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-500" />
-                    <span>Copy</span>
+                    <Copy className="w-4 h-4 text-[#567C8D]" />
+                    <span className="text-xs sm:text-sm">Copy Email</span>
                   </>
                 )}
               </button>
             </div>
-          </div>
 
-          {/* LinkedIn Card */}
-          <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center mb-4 border border-blue-100">
-                <Linkedin className="w-5 h-5" />
-              </div>
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold mb-1">
-                LinkedIn
-              </div>
-              <div className="text-sm font-semibold text-slate-900">
-                Dharm Chaniyara
-              </div>
-              <p className="text-xs text-slate-500 mt-1">
-                Connect professionally, review experience, and message directly.
-              </p>
-            </div>
-
-            <div className="mt-5 pt-4 border-t border-slate-200 flex items-center justify-between">
-              <a
-                href={PERSONAL_INFO.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline"
-              >
-                <span>View LinkedIn Profile</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
+            {/* Recruiter direct address display */}
+            <div className="text-xs font-mono text-[#567C8D] pt-1">
+              Direct inbox: <span className="text-[#2F4156] font-bold select-all">{PERSONAL_INFO.email}</span>
             </div>
           </div>
 
-          {/* GitHub Card */}
-          <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-slate-200 text-slate-800 flex items-center justify-center mb-4">
-                <Github className="w-5 h-5" />
-              </div>
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold mb-1">
-                GitHub
-              </div>
-              <div className="text-sm font-semibold text-slate-900 font-mono">
-                @DharmChaniyara
-              </div>
-              <p className="text-xs text-slate-500 mt-1">
-                Inspect public repositories, source code, and commit history.
-              </p>
-            </div>
-
-            <div className="mt-5 pt-4 border-t border-slate-200 flex items-center justify-between">
-              <a
-                href={PERSONAL_INFO.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline"
-              >
-                <span>View GitHub Profile</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
+          {/* Right Column: Custom Pixel Animation Scene */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <TechGroveAnimation />
           </div>
 
         </div>
 
-        {/* Location & Availability Note */}
-        <div className="mt-8 p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-          <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-            <span>Based in <strong>Vadodara &amp; Rajkot, Gujarat, India</strong> &bull; Open to on-site, hybrid, and remote opportunities</span>
+        {/* Bottom Banner: Location & Availability (Warm white elevated card) */}
+        <div className="mt-6 p-4 sm:p-5 edgy-card flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-[#2F4156]/90">
+          <div className="flex items-center gap-2.5 text-center sm:text-left">
+            <div className="w-7 h-7 bg-[#F5EFEB] border border-[#2F4156]/20 flex items-center justify-center shrink-0 text-[#2F4156]">
+              <MapPin className="w-4 h-4 text-[#2F4156]" />
+            </div>
+            <span>
+              Based in <strong>Vadodara &amp; Rajkot, Gujarat, India</strong> &bull; Open to on-site, hybrid, or remote roles
+            </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#C8D9E6]/40 border border-[#567C8D]/40 text-xs font-bold text-[#2F4156] shrink-0">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="text-slate-700 font-medium">Available for Summer / Semester Internships</span>
+            <span>Available for Summer &amp; Semester Internships</span>
           </div>
         </div>
 

@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-subtle py-3'
+          ? 'bg-[#F5EFEB]/95 backdrop-blur-md border-b border-[#2F4156]/15 shadow-edge-xs py-3'
           : 'bg-transparent py-4 sm:py-5'
       }`}
     >
@@ -57,34 +57,34 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
           {/* Brand Logo */}
           <a
             href="#home"
-            className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded-lg p-1"
+            className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2F4156] rounded-md p-1"
           >
-            <div className="w-8 h-8 rounded-lg bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center transition-transform group-hover:scale-105">
+            <div className="w-8 h-8 rounded-md bg-white border border-[#2F4156]/30 shadow-edge-xs text-[#2F4156] font-mono font-bold text-xs flex items-center justify-center transition-transform group-hover:scale-105">
               DC
             </div>
             <div className="flex flex-col">
-              <span className="text-sm sm:text-base font-bold tracking-tight text-slate-900">
+              <span className="text-sm sm:text-base font-bold tracking-tight text-[#2F4156]">
                 {PERSONAL_INFO.name}
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-[#567C8D] font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
                 Available for Internships
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 p-1 rounded-full border border-slate-200/80">
+          {/* Desktop Navigation with Precision Edges */}
+          <nav className="hidden md:flex items-center gap-1 bg-white/90 p-1 rounded-full border border-[#2F4156]/15 shadow-edge-xs">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <a
                   key={item.id}
                   href={item.href}
-                  className={`px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full transition-colors ${
+                  className={`px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full transition-all ${
                     isActive
-                      ? 'bg-white text-slate-900 shadow-sm font-semibold'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+                      ? 'bg-[#2F4156] text-white shadow-xs font-semibold'
+                      : 'text-[#2F4156]/75 hover:text-[#2F4156] hover:bg-[#C8D9E6]/40'
                   }`}
                 >
                   {item.label}
@@ -97,17 +97,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={onOpenResume}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg bg-slate-900 text-white hover:bg-slate-800 active:scale-95 transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-md bg-[#2F4156] text-white hover:bg-[#233243] border border-[#2F4156] shadow-edge-xs hover:shadow-edge active:translate-x-0.5 active:translate-y-0.5 transition-all"
               aria-label="View or download resume"
             >
-              <FileText className="w-4 h-4" />
+              <FileText className="w-4 h-4 text-[#C8D9E6]" />
               <span>Resume</span>
             </button>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
+              className="md:hidden p-2 rounded-md bg-white border border-[#2F4156]/20 text-[#2F4156] hover:bg-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#2F4156]"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >

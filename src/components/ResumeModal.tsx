@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   X, 
   Download, 
   ExternalLink, 
-  FileText
+  FileText,
+  Eye,
+  Check
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
@@ -13,6 +15,9 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
+  const [viewMode, setViewMode] = useState<'template' | 'pdf'>('template');
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -31,46 +36,86 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
   if (!isOpen) return null;
 
+  const handleDownload = () => {
+    setDownloadSuccess(true);
+    setTimeout(() => setDownloadSuccess(false), 2500);
+  };
+
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-[#0F161E]/70 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-4xl max-h-[94vh] bg-white border border-slate-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden text-slate-800"
+        className="relative w-full max-w-4xl max-h-[95vh] bg-[#F5EFEB] border-2 border-[#2F4156] shadow-edge-navy rounded-xl flex flex-col overflow-hidden text-[#2F4156]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="flex items-center justify-between p-4 sm:p-5 bg-white border-b border-slate-200">
+        <div className="flex items-center justify-between p-3.5 sm:p-4 bg-white border-b border-[#2F4156]/20">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
-              <FileText className="w-5 h-5" />
+            <div className="w-8 h-8 rounded-md bg-[#2F4156] text-white flex items-center justify-center border border-[#2F4156]">
+              <FileText className="w-4 h-4 text-[#C8D9E6]" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+              <h3 className="text-sm sm:text-base font-bold text-[#2F4156] tracking-tight">
                 Curriculum Vitae &bull; {PERSONAL_INFO.name}
               </h3>
-              <p className="text-xs text-slate-500 font-mono">
-                Canva Template Format &bull; 2-Column ATS Optimized &bull; 1-Page PDF
+              <p className="text-[11px] text-[#567C8D] font-mono">
+                Canva A4 Template &bull; Blue &amp; Cream Minimalist Format
               </p>
             </div>
           </div>
 
+          {/* Action CTAs */}
           <div className="flex items-center gap-2">
+            {/* View Mode Toggle */}
+            <div className="hidden sm:inline-flex items-center p-0.5 rounded-md bg-[#F5EFEB] border border-[#2F4156]/20 text-xs font-semibold">
+              <button
+                onClick={() => setViewMode('template')}
+                className={`px-2.5 py-1 rounded transition-all ${
+                  viewMode === 'template'
+                    ? 'bg-[#2F4156] text-white shadow-xs'
+                    : 'text-[#2F4156]/70 hover:text-[#2F4156]'
+                }`}
+              >
+                Template
+              </button>
+              <button
+                onClick={() => setViewMode('pdf')}
+                className={`px-2.5 py-1 rounded transition-all ${
+                  viewMode === 'pdf'
+                    ? 'bg-[#2F4156] text-white shadow-xs'
+                    : 'text-[#2F4156]/70 hover:text-[#2F4156]'
+                }`}
+              >
+                High-Res PDF
+              </button>
+            </div>
+
             <a
-              href={PERSONAL_INFO.resumeUrl}
+              href="/resume/Dharm_Chaniyara_CV.pdf"
               download="Dharm_Chaniyara_CV.pdf"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 text-white font-semibold text-xs sm:text-sm hover:bg-slate-800 transition-colors shadow-sm"
+              onClick={handleDownload}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#2F4156] text-white text-xs font-semibold hover:bg-[#233243] border border-[#2F4156] shadow-edge-xs hover:shadow-edge active:translate-x-0.5 active:translate-y-0.5 transition-all"
             >
-              <Download className="w-4 h-4" />
-              <span>Download PDF</span>
+              {downloadSuccess ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Downloaded!</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-3.5 h-3.5 text-[#C8D9E6]" />
+                  <span>Download PDF</span>
+                </>
+              )}
             </a>
 
             <a
-              href={PERSONAL_INFO.resumeUrl}
+              href="/resume/Dharm_Chaniyara_CV.pdf"
               target="_blank"
               rel="noreferrer"
-              className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+              className="p-1.5 rounded-md text-[#2F4156] hover:bg-[#C8D9E6]/50 border border-[#2F4156]/20 transition-colors"
               title="Open PDF in new tab"
             >
               <ExternalLink className="w-4 h-4" />
@@ -78,313 +123,302 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
             <button
               onClick={onClose}
-              className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors"
-              aria-label="Close resume viewer"
+              className="p-1.5 rounded-md text-[#2F4156] hover:bg-red-50 hover:text-red-700 hover:border-red-300 border border-transparent transition-colors"
+              aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
         </div>
 
         {/* Scrollable Document Container */}
-        <div className="p-3 sm:p-6 md:p-8 overflow-y-auto bg-slate-100/80 flex justify-center">
+        <div className="p-3 sm:p-6 md:p-8 overflow-y-auto bg-[#EAE3DC]/60 flex justify-center">
           
-          {/* Canva Template Paper Card */}
-          <div className="w-full max-w-3xl bg-white rounded-lg shadow-md border border-slate-200/90 p-6 sm:p-8 md:p-10 font-sans text-slate-800">
-            
-            {/* Top Header */}
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1b365d] uppercase">
-                DHARM CHANIYARA
-              </h1>
-              <div className="text-xs sm:text-sm font-bold text-slate-900 mt-1">
-                Computer Science &amp; Engineering Student | Aspiring Software Developer
-              </div>
-              <div className="text-xs text-slate-600 mt-2">
-                Vadodara, Gujarat, India &nbsp;|&nbsp; dharmchaniyara@gmail.com
-              </div>
-              <div className="text-xs text-slate-600 mt-1 flex flex-wrap gap-x-4 gap-y-1">
-                <span>
-                  GitHub:{' '}
-                  <a 
-                    href="https://github.com/DharmChaniyara" 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="text-blue-700 hover:underline"
-                  >
-                    github.com/DharmChaniyara
-                  </a>
-                </span>
-                <span>
-                  LinkedIn:{' '}
-                  <a 
-                    href="https://www.linkedin.com/in/dharm-chaniyara-b51b9137a/" 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="text-blue-700 hover:underline"
-                  >
-                    linkedin.com/in/dharm-chaniyara-b51b9137a
-                  </a>
-                </span>
-              </div>
-              <div className="text-xs text-slate-600 mt-1">
-                Portfolio:{' '}
-                <a 
-                  href="https://github.com/DharmChaniyara/Dharm-Chaniyara_Portfolio" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="text-blue-700 hover:underline"
-                >
-                  github.com/DharmChaniyara/Dharm-Chaniyara_Portfolio
-                </a>
-              </div>
+          {viewMode === 'pdf' ? (
+            /* High-Res Rendered Image from PDF */
+            <div className="w-full max-w-2xl bg-white rounded-md shadow-edge-navy border border-[#2F4156]/20 overflow-hidden">
+              <img 
+                src="/images/dharm_cv_preview.png" 
+                alt="Dharm Chaniyara CV" 
+                className="w-full h-auto"
+              />
             </div>
-
-            {/* 2-Column Section */}
-            <div className="mt-6 pt-5 border-t border-slate-200 grid grid-cols-1 md:grid-cols-12 gap-6">
+          ) : (
+            /* Interactive HTML Replication of the exact Canva Template */
+            <div className="w-full max-w-2xl bg-white shadow-edge-navy border border-[#2F4156]/25 rounded-sm overflow-hidden font-sans text-[#1E293B] relative select-text">
               
-              {/* Left Column (62% approx) */}
-              <div className="md:col-span-7 space-y-5 md:pr-4 md:border-r md:border-slate-200">
-                
-                {/* Summary */}
-                <div>
-                  <h3 className="flex items-center gap-1.5 text-xs font-bold text-[#1b365d] uppercase tracking-wider mb-2">
-                    <span className="text-[#2b6cb0] text-sm leading-none">&#9632;</span>
-                    <span>SUMMARY</span>
-                  </h3>
-                  <p className="text-xs text-slate-700 leading-relaxed text-justify">
-                    B.Tech Computer Science &amp; Engineering student at GSFC University with practical exposure to full-stack web development, AI-assisted development workflows, and Python programming. Completed a one-month AI web development internship at Idealfolks, Rajkot, gaining hands-on experience leveraging modern AI developer tools. Built practical projects in fraud detection (JobGuard AI), sales intelligence copilots (offline finalist at Hack Baroda 2026 with Team CODE BUSTERS), and campus academic resource platforms. Interested in software engineering, backend systems, and building useful AI-powered applications through collaborative, project-based engineering.
-                  </p>
-                </div>
-
-                {/* Experience */}
-                <div>
-                  <h3 className="flex items-center gap-1.5 text-xs font-bold text-[#1b365d] uppercase tracking-wider mb-2">
-                    <span className="text-[#2b6cb0] text-sm leading-none">&#9632;</span>
-                    <span>EXPERIENCE</span>
-                  </h3>
-                  <div>
-                    <div className="text-xs font-bold text-[#1b365d]">
-                      AI Web Developer Intern &mdash; Idealfolks
-                    </div>
-                    <div className="text-[11px] text-slate-500 mb-1.5">
-                      05 June 2026 &ndash; 05 July 2026 &nbsp;|&nbsp; Rajkot, Gujarat
-                    </div>
-                    <ul className="space-y-1 text-xs text-slate-700">
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Completed a one-month project internship focused on web development and AI-assisted workflows.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Leveraged modern AI developer tools for rapid component prototyping, API design, and debugging.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Developed responsive front-end user interfaces using HTML, CSS, and JavaScript.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Technology: HTML, CSS, JavaScript, AI Developer Tools</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Selected Projects */}
-                <div>
-                  <h3 className="flex items-center gap-1.5 text-xs font-bold text-[#1b365d] uppercase tracking-wider mb-2.5">
-                    <span className="text-[#2b6cb0] text-sm leading-none">&#9632;</span>
-                    <span>SELECTED PROJECTS</span>
-                  </h3>
+              {/* Top Navy Header Block (#2F4156) */}
+              <div className="bg-[#2F4156] text-white pt-8 pb-10 px-6 sm:px-8 relative">
+                <div className="grid grid-cols-12 gap-4 items-center">
                   
-                  {/* Project 1 */}
-                  <div className="mb-3.5">
-                    <div className="text-xs font-bold text-[#1b365d]">
-                      JobGuard AI &mdash; Fake Job Offer &amp; Scam Detector
-                    </div>
-                    <ul className="space-y-1 text-xs text-slate-700 mt-1">
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Developed a full-stack security application to detect fraudulent job offers using OpenAI for text analysis and VirusTotal API for malicious link scanning.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Built automated PDF text extraction using Multer and pdf-parse; designed prompt-engineered scoring model returning explainable scam indicators.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Technologies: React, Node.js, Express, Supabase, OpenAI API, VirusTotal API</span>
-                      </li>
-                    </ul>
-                  </div>
+                  {/* Left Column Spacer for overlapping photo */}
+                  <div className="col-span-4 sm:col-span-4 hidden sm:block"></div>
 
-                  {/* Project 2 */}
-                  <div className="mb-3.5">
-                    <div className="text-xs font-bold text-[#1b365d]">
-                      Deal Intelligence Agent &mdash; Hack Baroda 2026
+                  {/* Right Header Text */}
+                  <div className="col-span-12 sm:col-span-8 sm:pl-4">
+                    <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white leading-none">
+                      DHARM<br />CHANIYARA
+                    </h1>
+                    <div className="text-xs sm:text-sm font-bold tracking-wider text-[#C8D9E6] uppercase mt-2.5 font-sans">
+                      Computer Science &amp; AI/ML Developer
                     </div>
-                    <ul className="space-y-1 text-xs text-slate-700 mt-1">
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Collaborated with Team CODE BUSTERS at Hack Baroda 2026 to develop the Deal Intelligence Agent, an AI-powered sales copilot designed to organize sales knowledge and make prior deal experience useful.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Focused on organizing deal interactions and presenting stakeholder relationships using D3.js; explored objection insights and similar-deal retrieval.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Technologies: HTML, CSS, JavaScript, React, Node.js, Express, D3.js</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span className="font-medium text-slate-800">Team selected for the final offline round.</span>
-                      </li>
-                    </ul>
                   </div>
-
-                  {/* Project 3 */}
-                  <div>
-                    <div className="text-xs font-bold text-[#1b365d]">
-                      StudyShare &mdash; Campus Academic Resource Platform
-                    </div>
-                    <ul className="space-y-1 text-xs text-slate-700 mt-1">
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Developed a centralized academic sharing web platform for GSFC University students to access course syllabi, lecture notes, and past-year question papers.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Designed Supabase PostgreSQL schemas, document upload pipelines, and access control.</span>
-                      </li>
-                      <li className="flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">&bull;</span>
-                        <span>Technologies: JavaScript, HTML5, CSS3, Node.js, Supabase, Vercel</span>
-                      </li>
-                    </ul>
-                  </div>
-
                 </div>
-
               </div>
 
-              {/* Right Column (38% approx) */}
-              <div className="md:col-span-5 space-y-5 md:pl-2">
+              {/* Overlapping Arch Photo (Matches exact Canva placement) */}
+              <div className="relative">
+                <div className="sm:absolute sm:-top-28 sm:left-6 z-10 flex justify-center sm:block pt-4 sm:pt-0">
+                  <div className="w-36 sm:w-44 h-48 sm:h-58 rounded-t-full overflow-hidden border-4 border-white shadow-edge bg-[#2F4156]">
+                    <img 
+                      src="/images/dharm_arch_photo.png" 
+                      alt="Dharm Chaniyara Portrait" 
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* 2-Column Body Layout */}
+              <div className="grid grid-cols-1 sm:grid-cols-12 min-h-[640px]">
                 
-                {/* Education */}
-                <div>
-                  <h3 className="flex items-center gap-1.5 text-xs font-bold text-[#1b365d] uppercase tracking-wider mb-2">
-                    <span className="text-[#2b6cb0] text-sm leading-none">&#9632;</span>
-                    <span>EDUCATION</span>
-                  </h3>
-                  <div className="text-xs font-bold text-[#1b365d]">
-                    B.Tech &mdash; Computer Science &amp; Engineering
-                  </div>
-                  <div className="text-xs text-slate-700">
-                    GSFC University, Gujarat
-                  </div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">
-                    Currently in the 3rd semester (2025&ndash;2029).
-                  </div>
-                </div>
-
-                {/* Technical Skills */}
-                <div>
-                  <h3 className="flex items-center gap-1.5 text-xs font-bold text-[#1b365d] uppercase tracking-wider mb-2">
-                    <span className="text-[#2b6cb0] text-sm leading-none">&#9632;</span>
-                    <span>TECHNICAL SKILLS</span>
-                  </h3>
+                {/* Left Column (Soft Blue #EBEEF4) */}
+                <div className="sm:col-span-4 bg-[#EBEEF4] pt-4 sm:pt-28 pb-8 px-6 border-r border-[#CBD5E1]/60 text-xs">
                   
-                  <div className="space-y-2 text-xs">
-                    <div>
-                      <div className="font-bold text-[#1b365d] text-[11px]">Programming Languages:</div>
-                      <div className="text-slate-700 text-[11px]">Python (Certified), JavaScript (ES6+), Java, C/C++</div>
+                  {/* Contact */}
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <span className="w-5 h-[2.5px] bg-[#2F4156] -ml-6 inline-block" />
+                      <h4 className="font-serif text-base font-bold text-[#2F4156]">Contact</h4>
                     </div>
-                    <div>
-                      <div className="font-bold text-[#1b365d] text-[11px]">Web Development:</div>
-                      <div className="text-slate-700 text-[11px]">React.js, Vite, Tailwind CSS, HTML, CSS, Node.js, Express.js</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-[#1b365d] text-[11px]">Databases &amp; BaaS:</div>
-                      <div className="text-slate-700 text-[11px]">Supabase, PostgreSQL, SQL</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-[#1b365d] text-[11px]">AI &amp; Modern Tools:</div>
-                      <div className="text-slate-700 text-[11px]">OpenAI API, RAG Concepts, Prompt Engineering, AI Dev Workflows</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-[#1b365d] text-[11px]">Tools &amp; Version Control:</div>
-                      <div className="text-slate-700 text-[11px]">Git, GitHub, Vercel, VS Code</div>
+                    <div className="space-y-1.5 text-[11px] text-[#2F4156]">
+                      <div>
+                        <span className="font-bold block">Phone:</span>
+                        <span>+91 93281 92762</span>
+                      </div>
+                      <div>
+                        <span className="font-bold block">Email:</span>
+                        <a href={`mailto:${PERSONAL_INFO.email}`} className="text-[#567C8D] hover:underline break-all">
+                          {PERSONAL_INFO.email}
+                        </a>
+                      </div>
+                      <div>
+                        <span className="font-bold block">Location:</span>
+                        <span>Vadodara / Rajkot, India</span>
+                      </div>
+                      <div>
+                        <span className="font-bold block">LinkedIn:</span>
+                        <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noreferrer" className="text-[#567C8D] hover:underline">
+                          dharm-chaniyara
+                        </a>
+                      </div>
+                      <div>
+                        <span className="font-bold block">GitHub:</span>
+                        <a href={PERSONAL_INFO.github} target="_blank" rel="noreferrer" className="text-[#567C8D] hover:underline">
+                          @DharmChaniyara
+                        </a>
+                      </div>
                     </div>
                   </div>
+
+                  {/* Education */}
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <span className="w-5 h-[2.5px] bg-[#2F4156] -ml-6 inline-block" />
+                      <h4 className="font-serif text-base font-bold text-[#2F4156]">Education</h4>
+                    </div>
+                    <div className="space-y-3 text-[11px]">
+                      <div>
+                        <div className="font-bold text-[#2F4156]">GSFC University</div>
+                        <div className="text-[#475569]">B.Tech Computer Science &amp; Eng.</div>
+                        <div className="font-semibold text-[#567C8D]">2025 – 2029 (Current 3rd Sem)</div>
+                      </div>
+                      <div>
+                        <div className="font-bold text-[#2F4156]">The Vatsalya School, Rajkot</div>
+                        <div className="text-[#475569]">Higher Secondary (GSEB Science)</div>
+                        <div className="font-semibold text-[#567C8D]">Foundation CS &amp; Mathematics</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Skills */}
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <span className="w-5 h-[2.5px] bg-[#2F4156] -ml-6 inline-block" />
+                      <h4 className="font-serif text-base font-bold text-[#2F4156]">Skills</h4>
+                    </div>
+                    <ul className="space-y-1 text-[11px] text-[#2F4156]">
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>Python Programming</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>React.js &amp; TypeScript</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>Node.js &amp; Express</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>Full-Stack Web Dev</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>AI Developer Workflows</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>REST APIs &amp; JSON</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>Git, GitHub &amp; Linux</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Language */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <span className="w-5 h-[2.5px] bg-[#2F4156] -ml-6 inline-block" />
+                      <h4 className="font-serif text-base font-bold text-[#2F4156]">Language</h4>
+                    </div>
+                    <ul className="space-y-1 text-[11px] text-[#2F4156]">
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>English (Professional)</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>Gujarati (Native)</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#567C8D]" />
+                        <span>Hindi (Fluent)</span>
+                      </li>
+                    </ul>
+                  </div>
+
                 </div>
 
-                {/* Hackathon */}
-                <div>
-                  <h3 className="flex items-center gap-1.5 text-xs font-bold text-[#1b365d] uppercase tracking-wider mb-2">
-                    <span className="text-[#2b6cb0] text-sm leading-none">&#9632;</span>
-                    <span>HACKATHON &amp; AWARDS</span>
-                  </h3>
-                  <div className="text-xs font-bold text-[#1b365d]">
-                    Hack Baroda 2026 &mdash; Offline Finalist
+                {/* Right Column (Pure White #FFFFFF) */}
+                <div className="sm:col-span-8 bg-white py-6 px-6 sm:px-8 text-xs">
+                  
+                  {/* About Me */}
+                  <div className="mb-6">
+                    <div className="border-b border-[#CBD5E1] pb-1 mb-2.5">
+                      <h4 className="font-serif text-lg font-bold text-[#2F4156]">About Me</h4>
+                    </div>
+                    <p className="text-[11px] text-[#334155] leading-relaxed text-justify">
+                      Dedicated B.Tech Computer Science student at GSFC University with practical experience in AI-assisted web development, modern full-stack web applications, and Python. Completed industry internship at IdeaFolks, built real-world scam detection and sales copilots, and qualified as offline finalist at Hack Baroda 2026. Eager to contribute to meaningful engineering teams through internship opportunities.
+                    </p>
                   </div>
-                  <div className="text-xs text-slate-700 mt-0.5">
-                    Selected in final offline round with Team CODE BUSTERS for Deal Intelligence Agent.
-                  </div>
-                </div>
 
-                {/* Certifications */}
-                <div>
-                  <h3 className="flex items-center gap-1.5 text-xs font-bold text-[#1b365d] uppercase tracking-wider mb-2">
-                    <span className="text-[#2b6cb0] text-sm leading-none">&#9632;</span>
-                    <span>CERTIFICATIONS</span>
-                  </h3>
-                  <div className="space-y-2 text-xs">
-                    <div>
-                      <div className="font-bold text-[#1b365d]">Python Essentials 2</div>
-                      <div className="text-[11px] text-slate-600">Cisco Networking Academy &amp; OpenEDG Python Institute (Oct 2026)</div>
+                  {/* Work Experience */}
+                  <div className="mb-6">
+                    <div className="border-b border-[#CBD5E1] pb-1 mb-2.5">
+                      <h4 className="font-serif text-lg font-bold text-[#2F4156]">Work Experience</h4>
                     </div>
                     <div>
-                      <div className="font-bold text-[#1b365d]">Computer Hardware Basics</div>
-                      <div className="text-[11px] text-slate-600">Cisco Networking Academy (Sep 2026)</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-[#1b365d]">SSIP Drone Workshop</div>
-                      <div className="text-[11px] text-slate-600">Student Start-up and Innovation Policy, Gujarat</div>
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-xs text-[#2F4156]">AI Web Developer Intern</span>
+                        <span className="font-semibold text-[11px] text-[#567C8D]">June 2026 – July 2026</span>
+                      </div>
+                      <div className="font-semibold text-[11px] text-[#567C8D] mb-1.5">
+                        IdeaFolks &bull; Rajkot, Gujarat
+                      </div>
+                      <ul className="space-y-1 text-[11px] text-[#334155]">
+                        <li className="flex items-start gap-1.5">
+                          <span className="text-[#567C8D] mt-0.5">&bull;</span>
+                          <span>Completed a one-month project internship focused on web development and AI-assisted workflows.</span>
+                        </li>
+                        <li className="flex items-start gap-1.5">
+                          <span className="text-[#567C8D] mt-0.5">&bull;</span>
+                          <span>Leveraged modern AI developer tools for rapid component prototyping, API design, and debugging.</span>
+                        </li>
+                        <li className="flex items-start gap-1.5">
+                          <span className="text-[#567C8D] mt-0.5">&bull;</span>
+                          <span>Developed responsive front-end user interfaces using HTML, CSS, JavaScript, and modern component tooling.</span>
+                        </li>
+                      </ul>
                     </div>
                   </div>
+
+                  {/* Key Projects & Hackathons */}
+                  <div className="mb-6">
+                    <div className="border-b border-[#CBD5E1] pb-1 mb-2.5">
+                      <h4 className="font-serif text-lg font-bold text-[#2F4156]">Key Projects &amp; Hackathons</h4>
+                    </div>
+                    <div className="space-y-3 text-[11px]">
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[#2F4156]">Deal Intelligence Agent (Sales Copilot)</span>
+                          <span className="font-semibold text-[#567C8D]">Hack Baroda Finalist</span>
+                        </div>
+                        <p className="text-[#475569] mt-0.5">
+                          Built an AI sales intelligence copilot analyzing calls, buyer sentiment, and risk signals with Team CODE BUSTERS.
+                        </p>
+                      </div>
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[#2F4156]">JobGuard AI (Scam Job Offer Detector)</span>
+                          <span className="font-semibold text-[#567C8D]">Python &bull; ML &bull; NLP</span>
+                        </div>
+                        <p className="text-[#475569] mt-0.5">
+                          Engineered an automated scam detector evaluating offer letters with domain verification and NLP heuristic scoring.
+                        </p>
+                      </div>
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[#2F4156]">StudyShare (Campus Academic Platform)</span>
+                          <span className="font-semibold text-[#567C8D]">React &bull; Node.js</span>
+                        </div>
+                        <p className="text-[#475569] mt-0.5">
+                          Peer-to-peer syllabus and notes platform with semester filtering and fast document access.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Certifications & Achievements */}
+                  <div>
+                    <div className="border-b border-[#CBD5E1] pb-1 mb-2.5">
+                      <h4 className="font-serif text-lg font-bold text-[#2F4156]">Certifications &amp; Achievements</h4>
+                    </div>
+                    <div className="space-y-2 text-[11px]">
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[#2F4156]">Python Essentials 2</span>
+                          <span className="font-semibold text-[#567C8D]">Cisco Academy (Oct 2026)</span>
+                        </div>
+                        <div className="text-[#475569]">Advanced OOP, modules, exception handling, and file processing.</div>
+                      </div>
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[#2F4156]">Computer Hardware Basics</span>
+                          <span className="font-semibold text-[#567C8D]">Cisco Academy (Sept 2026)</span>
+                        </div>
+                        <div className="text-[#475569]">Core computer architecture, system diagnostics, and hardware.</div>
+                      </div>
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[#2F4156]">Hack Baroda 2026 Finalist</span>
+                          <span className="font-semibold text-[#567C8D]">Offline Finalist</span>
+                        </div>
+                        <div className="text-[#475569]">Selected as finalist with Team CODE BUSTERS among 100+ student teams.</div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
               </div>
 
             </div>
+          )}
 
-          </div>
-
-        </div>
-
-        {/* Modal Footer */}
-        <div className="p-4 bg-white border-t border-slate-200 flex items-center justify-between">
-          <span className="text-xs text-slate-500 hidden sm:block font-mono">
-            Direct Download: /resume/Dharm_Chaniyara_CV.pdf (1 Page)
-          </span>
-          <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700 transition-colors"
-            >
-              Close
-            </button>
-            <a
-              href={PERSONAL_INFO.resumeUrl}
-              download="Dharm_Chaniyara_CV.pdf"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-900 text-white font-semibold text-xs sm:text-sm hover:bg-slate-800 transition-colors shadow-sm"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download PDF File</span>
-            </a>
-          </div>
         </div>
 
       </div>

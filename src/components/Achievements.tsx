@@ -10,18 +10,18 @@ import { ACHIEVEMENTS } from '../data/portfolioData';
 
 export const Achievements: React.FC = () => {
   return (
-    <section id="achievements" className="py-20 relative bg-white border-b border-slate-200/80">
+    <section id="achievements" className="py-20 relative bg-[#F5EFEB] border-b border-[#2F4156]/15">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="flex flex-col items-start mb-12">
-          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-600 mb-2 block">
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#567C8D] mb-2 block">
             Credentials &amp; Recognitions
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#2F4156]">
             Hackathons &amp; Certifications
           </h2>
-          <p className="text-slate-600 text-base mt-2 max-w-2xl">
+          <p className="text-[#2F4156]/80 text-base mt-2 max-w-2xl">
             Verifiable milestones from student competitions, authorized Cisco certifications, and technical workshops.
           </p>
         </div>
@@ -31,47 +31,47 @@ export const Achievements: React.FC = () => {
           {ACHIEVEMENTS.map((ach) => (
             <div
               key={ach.id}
-              className="p-6 sm:p-7 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-slate-300 transition-all flex flex-col justify-between"
+              className="edgy-card p-6 sm:p-7 flex flex-col justify-between hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-200"
             >
               <div>
                 {/* Header Badge */}
                 <div className="flex items-center justify-between gap-3 mb-3">
-                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-mono font-medium border ${
+                  <span className={`px-2.5 py-0.5 text-xs font-mono font-bold border ${
                     ach.type === 'Award / Finalist'
-                      ? 'bg-amber-50 text-amber-800 border-amber-200'
+                      ? 'bg-[#C8D9E6]/50 text-[#2F4156] border-[#567C8D]/40'
                       : ach.type === 'Certification'
-                      ? 'bg-blue-50 text-blue-800 border-blue-200'
-                      : 'bg-slate-100 text-slate-700 border-slate-200'
+                      ? 'bg-[#567C8D]/15 text-[#2F4156] border-[#567C8D]/30'
+                      : 'bg-[#F5EFEB] text-[#2F4156] border-[#2F4156]/20'
                   }`}>
                     {ach.badgeText}
                   </span>
 
-                  <span className="flex items-center gap-1.5 text-xs text-slate-500 font-mono">
-                    <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                  <span className="flex items-center gap-1.5 text-xs text-[#567C8D] font-mono">
+                    <Calendar className="w-3.5 h-3.5 text-[#567C8D]" />
                     <span>{ach.date}</span>
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-slate-900 tracking-tight">
+                <h3 className="text-lg font-bold text-[#2F4156] tracking-tight">
                   {ach.title}
                 </h3>
 
                 {/* Issuing Organization */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium mt-1 mb-3">
-                  <Building className="w-3.5 h-3.5 text-slate-400" />
+                <div className="flex items-center gap-1.5 text-xs text-[#567C8D] font-medium mt-1 mb-3">
+                  <Building className="w-3.5 h-3.5 text-[#567C8D]" />
                   <span>{ach.organization}</span>
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm text-[#2F4156]/80 leading-relaxed">
                   {ach.description}
                 </p>
               </div>
 
               {/* Action / Certificate Link */}
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[11px] font-mono text-slate-400">
+              <div className="mt-6 pt-4 border-t border-[#2F4156]/10 flex items-center justify-between">
+                <span className="text-[11px] font-mono text-[#567C8D]">
                   Verified Record
                 </span>
 
@@ -80,7 +80,7 @@ export const Achievements: React.FC = () => {
                     href={ach.credentialUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#567C8D] hover:text-[#2F4156] transition-colors"
                   >
                     <span>Inspect Credential</span>
                     <ExternalLink className="w-3.5 h-3.5" />
